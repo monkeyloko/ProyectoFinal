@@ -2,42 +2,39 @@ import sql from 'mssql'
 import 'dotenv/config'
 import config from '../models/db.js'
 
-const autoTabla = process.env.DB_TABLA_AUTO;
+const ubicacionTabla = process.env.DB_TABLA_UBICACION;
 
 
-export class AutoService {
+export class UbicacionService {
 
-    getAuto = async () => {
+    getUbicacion = async () => {
         const pool = await sql.connect(config);
-        const response = await pool.request().query(`SELECT * from ${autoTabla}`);
+        const response = await pool.request().query(`SELECT * from ${ubicacionTabla}`);
         console.log(response)
         return response.recordset;
     }
 
-    getAutoById = async (id) => {
+    getUbicacionById = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idAuto',sql.Int, id)
-            .query(`SELECT * from ${autoTabla} where idAuto = @id`);
+            .input('idUbicacion',sql.Int, id)
+            .query(`SELECT * from ${ubicacionTabla} where idUbicacion = @id`);
         console.log(response)
         return response.recordset[0];
     }
 
-    createAuto = async (auto
+    createUbicacion = async (ubicacion 
         ) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('patente',sql.NChar, auto?.patente ?? '')
-            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
-            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
-            .input('modelo',sql.NChar, auto?.modelo ?? '')
-            .input('limpio',sql.Bit, auto?.limpio ?? null)
-            .query(`INSERT INTO ${autoTabla}(patente, fkUbicacion, disponibilidad, modelo, limpio) VALUES (@patente, @fkUbicacion, @disponibilidad, @modelo, @limpio)`);
+            .input('nombre',sql.NChar, ubicacion?.nombre ?? '')
+            .input('direccion',sql.NChar, ubicacion?.direccion ?? '')
+            .query(`INSERT INTO ${ubicacionTabla}(nombre, direccion) VALUES (@nombre, @direccion)`);
         console.log(response)
         return response.recordset;
     }
 
-   /* updateAuto = async (id, auto) => {
+    /*updateAuto = async (id, auto) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('Id',sql.Int, id)
@@ -50,11 +47,11 @@ export class AutoService {
         return response.recordset;
     }*/
 
-    deleteAuto = async (id) => {
+    deleteUbicacion = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idAuto',sql.Int, id)
-            .query(`DELETE FROM ${autoTabla} WHERE idAuto = @id`);
+            .input('idUbicacion',sql.Int, id)
+            .query(`DELETE FROM ${ubicacionTabla} WHERE idUbicacion = @id`);
         console.log(response)
         return response.recordset;
     }
