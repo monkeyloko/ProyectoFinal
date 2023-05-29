@@ -19,6 +19,7 @@ const Tabla = () => {
 
 
   return (
+    <div className='container flex'>
     <table>
       <thead>
         <tr>
@@ -53,6 +54,7 @@ const Tabla = () => {
         }
       </tbody>
     </table>
+    </div>
   );
 };
 
