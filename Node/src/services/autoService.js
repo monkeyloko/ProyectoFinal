@@ -17,7 +17,7 @@ export class AutoService {
     getAutoById = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idAuto',sql.Int, id)
+            .input('id',sql.Int, id)
             .query(`SELECT * from ${autoTabla} where idAuto = @id`);
         console.log(response)
         return response.recordset[0];
@@ -53,7 +53,7 @@ export class AutoService {
     deleteAuto = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idAuto',sql.Int, id)
+            .input('id',sql.Int, id)
             .query(`DELETE FROM ${autoTabla} WHERE idAuto = @id`);
         console.log(response)
         return response.recordset;

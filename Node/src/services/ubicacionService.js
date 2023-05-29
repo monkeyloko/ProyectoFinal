@@ -17,7 +17,7 @@ export class UbicacionService {
     getUbicacionById = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idUbicacion',sql.Int, id)
+            .input('id',sql.Int, id)
             .query(`SELECT * from ${ubicacionTabla} where idUbicacion = @id`);
         console.log(response)
         return response.recordset[0];
@@ -50,7 +50,7 @@ export class UbicacionService {
     deleteUbicacion = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('idUbicacion',sql.Int, id)
+            .input('id',sql.Int, id)
             .query(`DELETE FROM ${ubicacionTabla} WHERE idUbicacion = @id`);
         console.log(response)
         return response.recordset;
