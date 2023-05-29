@@ -1,9 +1,7 @@
-
 import express from "express";
 import cors from "cors";
 import AutoRouter from "./src/Controller/autoController.js";
 import UbicacionRouter from "./src/Controller/ubicacionController.js";
-
 
 const app = express();
 const port = 5000;
