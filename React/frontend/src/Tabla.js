@@ -55,6 +55,7 @@ const Tabla = () => {
         </tbody>
       </table>
     </div>
+    
   );
 };
 
