@@ -3,8 +3,8 @@ import Formulario from './Form'
 import { useState } from 'react';
 
 function Modal({autos, setAutos}){
-    let modal = document.getElementById('modal');
     function handleExit() {
+        const modal = document.getElementById('modal');
         modal.style.display = 'none';
     }
 
@@ -14,7 +14,7 @@ function Modal({autos, setAutos}){
             <div className='modal-content'>
                 <div className="modal-header">
                     <button className='close' onClick={() => handleExit()}>&times;</button>
-                    <h4>Agregar auto</h4>
+                    
                 </div>
                 <div className="modal-body">
                     <Formulario setAutos={setAutos} autos={autos}/>
