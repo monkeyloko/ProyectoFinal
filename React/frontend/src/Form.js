@@ -1,49 +1,74 @@
 import React, { useState } from 'react'
 import './index.css';
+import axios from 'axios';
 
 
+function Formulario() {
+    const [auto, setAuto] = useState({
+      patente: '',
+      ubicacion: '',
+      disponibilidad: '',
+      modelo: '',
+      limpio: '',
+    });
+  
+    const handleChange = (e) => {
+      setAuto({
+        ...auto,
+        [e.target.name]: e.target.value,
+      });
 
-function Formulario({ setAutos, autos }) {
+    };
+    
+    const handleSubmit = (e) => {
+        let data = JSON.stringify({
+            patente: auto.patente,
+            fkUbicacion: auto.fkUbicacion,
+            disponibilidad: auto.disponibilidad,
+            modelo: auto.modelo,
+            limpio: auto.limpio
 
-    const agarrarDatos = (e) => {
+        });
         e.preventDefault();
+        //axios.post('http://localhost:5000/autos/', data);
+        fetch("http://localhost:5000/autos/", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
 
-        setAutos([
-            ...autos,
-            {
-                patente: e.target.patente.value,
-                ubicacion: e.target.fkUbicacion.value,
-                disponibilidad: e.target.disponibilidad.value,
-                modelo: e.target.modelo.value,
-                limpio: e.target.limpio.value
-            }
-        ])
-
-    }
-
+        //make sure to serialize your JSON body
+        body: data
+        })
+        console.log(auto.modelo);
+    };
+    
 
     return (
-        <form onSubmit={agarrarDatos}>
-            <label>Patente</label>
-            <input type="text" name="patente" className="u-full-width" placeholder="Patente"></input>
-
-            <label>Ubicacion</label>
-            <select name ="fkUbicacion">
-                <option value="1">Chalten</option>
-                <option value="2">Galpon</option>
-                <option value="3">Aeropuerto</option>
-            </select>
-
-            <label>Disponibilidad</label>
-            <input type="text" name="disponibilidad" className="u-full-width"></input>
-
-            <label>Modelo</label>
-            <input type="text" name="modelo" className="u-full-width"></input>
-
-            <label>Limpio</label>
-            <textarea name="limpio" className="u-full-width"></textarea>
-            <button type="submit" className="u-full-width button-primary">Agregar Auto</button>
-        </form>
+      <form onSubmit={handleSubmit}>
+        <label>Patente</label>
+        <input type="text" name="patente" onChange={handleChange} />
+  
+        <label>Ubicacion</label>
+        <select name="ubicacion" onChange={handleChange}>
+          <option value="1">Chalten</option>
+          <option value="2">Galpon</option>
+          <option value="3">Aeropuerto</option>
+        </select>
+  
+        <label>Disponibilidad</label>
+        <input type="text" name="disponibilidad" onChange={handleChange} />
+  
+        <label>Modelo</label>
+        <input type="text" name="modelo" onChange={handleChange} />
+  
+        <label>Limpio</label>
+        <input type="text" name="limpio" onChange={handleChange} />
+  
+        <button type="submit">Agregar Auto</button>
+      </form>
     );
-}
-export default Formulario;
+  }
+  
+  export default Formulario;

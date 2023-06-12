@@ -2,7 +2,8 @@ import './Modal.css';
 import Formulario from './Form'
 import { useState } from 'react';
 
-function Modal({autos, setAutos}){
+function Modal({auto, setAuto}){
+
     function handleExit() {
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
@@ -17,7 +18,7 @@ function Modal({autos, setAutos}){
                     
                 </div>
                 <div className="modal-body">
-                    <Formulario setAutos={setAutos} autos={autos}/>
+                    <Formulario setAuto={setAuto} auto={auto}/>
                 </div>
                 <div className="modal-footer">
                     <button onClick={() => handleExit()}>Atrás</button>
