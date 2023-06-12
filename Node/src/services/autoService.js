@@ -37,18 +37,19 @@ export class AutoService {
         return response.recordset;
     }
 
-   /* updateAuto = async (id, auto) => {
+    updateAuto = async (id, auto) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('Id',sql.Int, id)
-            .input('Imagen',sql.NChar, auto?.Imagen ?? '')
-            .input('Titulo',sql.NChar, auto?.Titulo ?? '')
-            .input('FechaCreacion',sql.Int, auto?.FechaCreacion ?? null)
-            .input('Calificacion',sql.Float, auto?.Calificacion ?? 0)
-            .query(`UPDATE ${autoTabla} SET Imagen = @Imagen, Titulo = @Titulo, FechaCreacion = @FechaCreacion, Calificacion = @Calificacion WHERE Id = @Id`);
+            .input('patente',sql.NChar, auto?.patente ?? '')
+            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
+            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
+            .input('modelo',sql.NChar, auto?.modelo ?? '')
+            .input('limpio',sql.Bit, auto?.limpio ?? 0)
+            .query(`UPDATE ${autoTabla} SET patente = @patente, fkUbicacion = @fkUbicacion, disponibilidad = @disponibilidad, modelo = @modelo, limpio = @limpio WHERE Id = @Id`);
         console.log(response)
         return response.recordset;
-    }*/
+    }
 
     deleteAuto = async (id) => {
         const pool = await sql.connect(config);

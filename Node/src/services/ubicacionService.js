@@ -34,19 +34,17 @@ export class UbicacionService {
         return response.recordset;
     }
 
-    /*updateAuto = async (id, auto) => {
+    updateUbicacion = async (id, ubicacion) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('Id',sql.Int, id)
-            .input('Imagen',sql.NChar, auto?.Imagen ?? '')
-            .input('Titulo',sql.NChar, auto?.Titulo ?? '')
-            .input('FechaCreacion',sql.Int, auto?.FechaCreacion ?? null)
-            .input('Calificacion',sql.Float, auto?.Calificacion ?? 0)
-            .query(`UPDATE ${autoTabla} SET Imagen = @Imagen, Titulo = @Titulo, FechaCreacion = @FechaCreacion, Calificacion = @Calificacion WHERE Id = @Id`);
+            .input('nombre',sql.NChar, ubicacion?.nombre ?? '')
+            .input('direccion',sql.NChar, ubicacion?.direccion ?? '')
+            .query(`UPDATE ${ubicacionTabla} SET nombre = @nombre, direccion = @direccion WHERE Id = @Id`);
         console.log(response)
         return response.recordset;
-    }*/
-
+    }
+    
     deleteUbicacion = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
