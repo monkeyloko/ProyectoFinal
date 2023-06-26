@@ -23,8 +23,7 @@ export class AutoService {
         return response.recordset[0];
     }
 
-    createAuto = async (auto
-        ) => {
+    createAuto = async (auto) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('patente',sql.NChar, auto?.patente ?? '')
