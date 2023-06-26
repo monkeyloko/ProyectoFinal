@@ -21,7 +21,7 @@ function Modal({auto, setAuto}){
                     <Formulario setAuto={setAuto} auto={auto}/>
                 </div>
                 <div className="modal-footer">
-                    <button onClick={() => handleExit()}>Atrás</button>
+                
                 </div>
             </div>
         </div>
