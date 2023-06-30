@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import './Tabla.css'
 const Tabla = () => {
 
-  const handleClick=()=> {
+  const handleClick = () => {
     let modal = document.getElementById('modal');
     modal.style.display = 'block';
-    }
+  }
 
   const [autos, setAutos] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -55,16 +55,16 @@ const Tabla = () => {
               </tr>
 
             ))
-            
+
           }
-          
+
 
         </tbody>
-        
+
       </table>
       <button className='btn btn-primary' onClick={() => handleClick()}>Agregar Auto</button>
     </div>
-    
+
   );
 };
 
