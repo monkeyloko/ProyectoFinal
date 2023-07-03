@@ -31,17 +31,22 @@ router.get('', async (req, res) => {
     return res.status(200).json(ubicacion);
 });
 
-router.get('/:id',  async (req, res) => {
+router.get('/:id', async (req, res) => {
     const ubicacion = await ubicacionService.getUbicacion(req.params.id);
     return res.status(200).json(ubicacion);
 });
 
-router.post('',  async (req, res) => {
+router.post('', async (req, res) => {
     const ubicacion = await ubicacionService.createUbicacion(req.body);
     return res.status(201).json(ubicacion);
 });
 
-router.delete('/:id',  async (req, res) => {
+router.put('', async (req, res) => {
+    const ubicacion = await ubicacionService.updateUbicacion(req.body);
+    return res.status(201).json(ubicacion);
+});
+
+router.delete('/:id', async (req, res) => {
     const ubicacion = await ubicacionService.deleteUbicacion(req.params.id);
     return res.status(200).json(ubicacion);
 });

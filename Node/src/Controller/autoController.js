@@ -31,17 +31,22 @@ router.get('', async (req, res) => {
     return res.status(200).json(auto);
 });
 
-router.get('/:id',  async (req, res) => {
+router.get('/:id', async (req, res) => {
     const auto = await autoService.getAutoById(req.params.id);
     return res.status(200).json(auto);
 });
 
-router.post('',  async (req, res) => {
+router.post('', async (req, res) => {
     const auto = await autoService.createAuto(req.body);
     return res.status(201).json(auto);
 });
 
-router.delete('/:id',  async (req, res) => {
+router.put('', async (req, res) => {
+    const auto = await autoService.updateAuto(req.body);
+    return res.status(200).json(auto);
+});
+
+router.delete('/:id', async (req, res) => {
     const auto = await autoService.deleteAuto(req.params.id);
     return res.status(200).json(auto);
 });
