@@ -1,53 +1,47 @@
-html,
-body {
-	height: 100%;
+.Tabla {
+	max-width: 800px;
+	/* Establece el ancho máximo de la tabla */
+	margin: 0 auto;
+	/* Centra la tabla horizontalmente en la página */
+	margin-top: 1%;
+	margin-bottom: 4%;
 }
 
-body {
-	margin: 0;
-	background: linear-gradient(45deg, #49a09d, #5f2c82);
-	font-family: sans-serif;
-	font-weight: 100;
+@media (max-width: 600px) {
+	.Tabla {
+		width: 100%;
+
+		/* Establece el ancho completo de la tabla en dispositivos móviles */
+	}
 }
 
-.container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-table {
-	border-radius: 10px;
-	width: 800px;
+.Tabla table {
+	width: 100%;
+	/* Establece el ancho completo de la tabla */
 	border-collapse: collapse;
-	overflow: hidden;
-	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
 }
 
-th,
-td {
-	padding: 15px;
-	background-color: rgba(255,255,255,0.2);
-	color: #fff;
-}
-
-th {
+.Tabla th,
+.Tabla td {
+	padding: 8px;
 	text-align: left;
+	border-bottom: 1px solid #ddd;
 }
 
-th thead {
-	 
-		background-color: #55608f;
-	
+.Tabla th {
+	background-color: #f2f2f2;
 }
 
-tr tbody  {
-	 
-		background-color: rgb(255,255,255);
-		
-	}
-	td {
-		position: relative;
-		
-	}
+.Tabla tbody tr {
+	background-color: #f2f2f2;
+}
+
+.Tabla tbody tr:hover {
+	background-color: #ddd;
+}
+
+.Tabla a {
+	text-decoration: none;
+	color: #333;
+}

@@ -1,18 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import './index.css';
-import './Form.css'
+import './Form.css';
+import Modal from 'react-modal';
 import axios from 'axios';
 
-
-function Formulario() {
-
-  function handleExit() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
-    window.location.reload()
-  }
-
-  const [auto, setAuto] = useState({
+function Formulario({ setAuto, closeModal }) {
+  const [autoData, setAutoData] = useState({
     patente: '',
     ubicacion: '',
     disponibilidad: '',
@@ -21,37 +14,34 @@ function Formulario() {
   });
 
   const handleChange = (e) => {
-    setAuto({
-      ...auto,
+    setAutoData({
+      ...autoData,
       [e.target.name]: e.target.value,
     });
-
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let data = JSON.stringify({
-      patente: auto.patente,
-      fkUbicacion: auto.ubicacion,
-      disponibilidad: auto.disponibilidad,
-      modelo: auto.modelo,
-      limpio: auto.limpio
+    const data = {
+      patente: autoData.patente,
+      fkUbicacion: autoData.ubicacion,
+      disponibilidad: autoData.disponibilidad,
+      modelo: autoData.modelo,
+      limpio: autoData.limpio,
+    };
 
-    });
-    console.log(data.patente);
-    //axios.post('http://localhost:5000/autos/', data);
-    fetch("http://localhost:5000/autos/", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-
-      body: data
-    })
-    console.log(auto.modelo);
+    axios
+      .post('http://localhost:5000/autos/', data)
+      .then((response) => {
+        console.log(response.data);
+        setAuto(response.data);
+        closeModal();
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-
 
   return (
     <div className="form-container">
@@ -61,9 +51,8 @@ function Formulario() {
           <input type="text" name="patente" onChange={handleChange} required />
 
           <label>Ubicacion</label>
-          <select name="ubicacion" onChange={handleChange}>
+          <select name="ubicacion" onChange={handleChange} required>
             <option value="1">Chalten</option>
-
             <option value="2">Galpon</option>
             <option value="3">Aeropuerto</option>
           </select>
@@ -77,7 +66,7 @@ function Formulario() {
           <label>Limpio</label>
           <input type="text" name="limpio" onChange={handleChange} />
 
-          <button type="submit" onClick={handleExit}>Agregar Auto</button>
+          <button type="submit">Agregar Auto</button>
         </form>
       </div>
     </div>
