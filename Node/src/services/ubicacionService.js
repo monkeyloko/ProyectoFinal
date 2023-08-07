@@ -40,7 +40,7 @@ export class UbicacionService {
             .input('Id',sql.Int, id)
             .input('nombre',sql.NChar, ubicacion?.nombre ?? '')
             .input('direccion',sql.NChar, ubicacion?.direccion ?? '')
-            .query(`UPDATE ${ubicacionTabla} SET nombre = @nombre, direccion = @direccion WHERE Id = @Id`);
+            .query(`UPDATE ${ubicacionTabla} SET nombre = @nombre, direccion = @direccion WHERE idUbicacion = @Id`);
         console.log(response)
         return response.recordset;
     }

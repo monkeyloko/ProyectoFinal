@@ -4,4 +4,4 @@ export class Daños{
     fecha;
     fkAuto;
     descripcion;
-    }
+} 
