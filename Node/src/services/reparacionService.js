@@ -5,7 +5,7 @@ import config from '../models/db.js'
 const reparacionTabla = process.env.DB_TABLA_REPARACION;
 
 
-export class ReparacionTabla {
+export class ReparacionService {
 
     getReparacion = async () => {
         const pool = await sql.connect(config);

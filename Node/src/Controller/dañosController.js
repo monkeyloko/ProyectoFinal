@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import express from 'express';
-import { Daños, DañosService, dañosService } from '../services/dañosService.js';
+import { DañosService } from '../services/dañosService.js';
 import { Daños } from '../models/daños.js';
 const router = Router();
 const dañosService = new DañosService();

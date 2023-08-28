@@ -9,7 +9,7 @@ export class ClienteService {
 
     getCliente = async () => {
         const pool = await sql.connect(config);
-        const response = await pool.request().query(`SELECT * from $ clienteTabla}`);
+        const response = await pool.request().query(`SELECT * from ${clienteTabla}`);
         console.log(response)
         return response.recordset;
     }

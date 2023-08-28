@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import express from 'express';
-import { Contrato, contratoService } from '../services/contratoService';
-import { Contrato } from '../models/contrato';
+import {  ContratoService } from '../services/contratoService.js';
+import { Contrato } from '../models/contrato.js';
 const router = Router();
-const contratoService = new contratoService();
+const contratoService = new ContratoService();
 const app = express();
 app.use(express.json());
 /*

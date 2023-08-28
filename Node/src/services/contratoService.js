@@ -5,7 +5,7 @@ import config from '../models/db.js'
 const contratoTabla = process.env.DB_TABLA_CONTRATO;
 
 
-export class contratoService {
+export class ContratoService {
 
     getContrato = async () => {
         const pool = await sql.connect(config);
@@ -31,8 +31,8 @@ export class contratoService {
             .input('fechaDevolucion',sql.Date, contrato?.fechaDevolucion ?? '')
             .input('fkCliente',sql.Int, contrato?.fkCliente ?? 0)
             .input('fkAuto',sql.Int, contrato?.fkAuto ?? 0)
-            .input('id_dañoEntrega',sql.Int, contrato?.id_dañoEntrega ?? 0)
-            .input('id_dañoDevolucion',sql.Int, contrato?.id_dañoDevolucion ?? 0)
+            .input('id_dañoEntrega',sql.Int, contrato?.id_dañoEntrega ?? null)
+            .input('id_dañoDevolucion',sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega',sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion',sql.Int, contrato?.ubicacionDevolucion ?? 0)
             .query(`INSERT INTO ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_dañoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
@@ -49,8 +49,8 @@ export class contratoService {
             .input('fechaDevolucion',sql.Date, contrato?.fechaDevolucion ?? "")
             .input('fkCliente',sql.Int, contrato?.fkCliente ?? 0)
             .input('fkAuto',sql.Int, contrato?.fkAuto ?? 0)
-            .input('id_dañoEntrega',sql.Int, contrato?.id_dañoEntrega ?? 0)
-            .input('id_dañoDevolucion',sql.Int, contrato?.id_dañoDevolucion ?? 0)
+            .input('id_dañoEntrega',sql.Int, contrato?.id_dañoEntrega ?? null)
+            .input('id_dañoDevolucion',sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega',sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion',sql.Int, contrato?.ubicacionDevolucion ?? 0)
             .query(`UPDATE ${contratoTabla} SET precio = @precio, fechaAlquilado = @fechaAlquilado, fechaDevolucion = @fechaDevolucion, fkCliente = @fkCliente, fkAuto = @fkAuto,id_dañoEntrega = @id_dañoEntrega,id_dañoDevolucion = @id_dañoDevolucion, ubicacionEntrega = @ubicacionEntrega, ubicacionDevolucion = @ubicacionDevolucion  WHERE Id = @Id`);
