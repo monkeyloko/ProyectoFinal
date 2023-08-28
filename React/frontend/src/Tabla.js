@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import './Tabla.css';
 import Formulario from './Form';
+import FormContrato from './FormContrato';
 
 const Tabla = () => {
   const [autos, setAutos] = useState([]);
@@ -12,6 +13,7 @@ const Tabla = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isAddModalOpen2, setIsAddModalOpen2] = useState(false);
   const [auto, setAuto] = useState(null);
+  const [contrato, setContrato] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:5000/autos/')
@@ -91,7 +93,7 @@ const Tabla = () => {
 
       <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2}>
         <h2>Crear Contrato</h2>
-
+        <FormContrato setContrato={setContrato} closeModal={closeAddModal2} />
         <button onClick={closeAddModal2}>Cancelar</button>
       </Modal>
     </div>

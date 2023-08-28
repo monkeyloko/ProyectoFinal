@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import axios from 'axios';
 
 function FormContrato({ setContrato, closeModal }) {
+    const [clientes, setClientes] = useState([]);
+    const [autos, setAutos] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
+
     const [contratoData, setContratoData] = useState({
         precio: '',
         fechaAlquilado: '',
         fechaDevolucion: '',
-        fkCliente: '',
+        fkCliente: '', // Cambia esto a un string
         fkAuto: '',
-        id_dañoEntrega: '',
-        id_dañoDevolucion: '',
+        id_dañoEntrega: null,
+        id_dañoDevolucion: null,
         ubicacionEntrega: '',
         ubicacionDevolucion: '',
     });
@@ -25,15 +29,15 @@ function FormContrato({ setContrato, closeModal }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            precio: autoData.precio,
-            fechaAlquilado: autoData.fechaAlquilado,
-            fechaDevolucion: autoData.fechaDevolucion,
-            fkCliente: autoData.fkCliente,
-            fkAuto: autoData.fkAuto,
-            id_dañoEntrega: autoData.id_dañoEntrega,
-            id_dañoDevolucion: autoData.id_dañoDevolucion,
-            ubicacionEntrega: autoData.ubicacionEntrega,
-            ubicacionDevolucion: autoData.ubicacionDevolucion,
+            precio: contratoData.precio,
+            fechaAlquilado: contratoData.fechaAlquilado,
+            fechaDevolucion: contratoData.fechaDevolucion,
+            fkCliente: contratoData.fkCliente,
+            fkAuto: contratoData.fkAuto,
+            id_dañoEntrega: contratoData.id_dañoEntrega,
+            id_dañoDevolucion: contratoData.id_dañoDevolucion,
+            ubicacionEntrega: contratoData.ubicacionEntrega,
+            ubicacionDevolucion: contratoData.ubicacionDevolucion,
         };
 
         axios
@@ -42,12 +46,29 @@ function FormContrato({ setContrato, closeModal }) {
                 console.log(response.data);
                 setContrato(response.data);
                 closeModal();
-                window.location.reload()
+                window.location.reload();
             })
             .catch((error) => {
                 console.error(error);
             });
     };
+
+    useEffect(() => {
+        fetch('http://localhost:5000/cliente/')
+            .then((response) => response.json())
+            .then((clientesJson) => {
+                console.log('clientes', clientesJson);
+                setClientes(clientesJson);
+                setIsLoading(false);
+            });
+            fetch('http://localhost:5000/autos/')
+            .then((response) => response.json())
+            .then((autosJson) => {
+                console.log('clientes', autosJson);
+                setAutos(autosJson);
+                setIsLoading(false);
+            });
+    }, []);
 
     return (
         <div className="form-container">
@@ -59,22 +80,36 @@ function FormContrato({ setContrato, closeModal }) {
                     <label>Fecha Alquilado</label>
                     <input type="date" name="fechaAlquilado" onChange={handleChange} required />
 
-
                     <label>Fecha Devolucion</label>
                     <input type="date" name="fechaDevolucion" onChange={handleChange} required />
 
-                    <label>fkCliente</label>
-                    <input type="text" name="modelo" onChange={handleChange} />
-
-                    <label>Limpio</label>
-
-                    <select name="limpio" onChange={handleChange} required>
-                        <option value="1">Esta limpio</option>
-                        <option value="0">No esta limpio</option>
-
+                    <label>Cliente</label>
+                    <select name="fkCliente" onChange={handleChange} required>
+                        <option value="">Selecciona un cliente</option>
+                        {clientes.map((cliente) => (
+                            <option key={cliente.idCliente} value={cliente.idCliente}>
+                                {cliente.nombreCompleto}
+                            </option>
+                        ))}
                     </select>
 
-                    <button type="submit">Agregar Auto</button>
+                    <label>Auto</label>
+                    <select name="fkAuto" onChange={handleChange} required>
+                        <option value="">Selecciona un auto</option>
+                        {autos.map((auto) => (
+                            <option key={auto.idAuto} value={auto.idAuto}>
+                                {auto.patente}
+                            </option>
+                        ))}
+                    </select>
+
+                    <label>ubicacionEntrega</label>
+                    <input type="number" name="ubicacionEntrega" onChange={handleChange} />
+
+                    <label>ubicacionDevolucion</label>
+                    <input type="number" name="ubicacionDevolucion" onChange={handleChange} />
+
+                    <button type="submit">Crear Contrato</button>
                 </form>
             </div>
         </div>
