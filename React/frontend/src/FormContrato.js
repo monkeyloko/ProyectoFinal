@@ -63,7 +63,7 @@ function FormContrato({ setContrato, closeModal }) {
                     <label>Fecha Devolucion</label>
                     <input type="date" name="fechaDevolucion" onChange={handleChange} required />
 
-                    <label>Modelo</label>
+                    <label>fkCliente</label>
                     <input type="text" name="modelo" onChange={handleChange} />
 
                     <label>Limpio</label>
