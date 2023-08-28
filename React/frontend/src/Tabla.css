@@ -45,3 +45,17 @@
 	text-decoration: none;
 	color: #333;
 }
+
+.custom-modal {
+  width: 50rem;
+  margin: auto;
+  margin-top: 5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+  .custom-modal h2{
+text-align: center;
+  }
+  

@@ -5,6 +5,7 @@ import axios from 'axios';
 function FormContrato({ setContrato, closeModal }) {
     const [clientes, setClientes] = useState([]);
     const [autos, setAutos] = useState([])
+    const [ubicaciones, setUbicaciones] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const [contratoData, setContratoData] = useState({
@@ -68,6 +69,13 @@ function FormContrato({ setContrato, closeModal }) {
                 setAutos(autosJson);
                 setIsLoading(false);
             });
+            fetch('http://localhost:5000/ubicacion/')
+            .then((response) => response.json())
+            .then((ubicacionJson) => {
+                console.log('clientes', ubicacionJson);
+                setUbicaciones(ubicacionJson);
+                setIsLoading(false);
+            });
     }, []);
 
     return (
@@ -104,10 +112,24 @@ function FormContrato({ setContrato, closeModal }) {
                     </select>
 
                     <label>ubicacionEntrega</label>
-                    <input type="number" name="ubicacionEntrega" onChange={handleChange} />
+                    <select name="ubicacionEntrega" onChange={handleChange} required>
+                        <option value="">Selecciona una ubicacion</option>
+                        {ubicaciones.map((ubicacion) => (
+                            <option key={ubicacion.idUbicacion} value={ubicacion.idUbicacion}>
+                                {ubicacion.nombre}
+                            </option>
+                        ))}
+                    </select>
 
                     <label>ubicacionDevolucion</label>
-                    <input type="number" name="ubicacionDevolucion" onChange={handleChange} />
+                    <select name="ubicacionDevolucion" onChange={handleChange} required>
+                        <option value="">Selecciona una ubicacion</option>
+                        {ubicaciones.map((ubicacion) => (
+                            <option key={ubicacion.idUbicacion} value={ubicacion.idUbicacion}>
+                                {ubicacion.nombre}
+                            </option>
+                        ))}
+                    </select>
 
                     <button type="submit">Crear Contrato</button>
                 </form>

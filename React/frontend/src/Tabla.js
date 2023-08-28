@@ -85,13 +85,13 @@ const Tabla = () => {
         Crear Contrato
       </button>
 
-      <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal}>
+      <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal}  className="custom-modal">
         <h2>Agregar Auto</h2>
         <Formulario setAuto={setAuto} closeModal={closeAddModal} />
         <button onClick={closeAddModal}>Cancelar</button>
       </Modal>
 
-      <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2}>
+      <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2} className="custom-modal" >
         <h2>Crear Contrato</h2>
         <FormContrato setContrato={setContrato} closeModal={closeAddModal2} />
         <button onClick={closeAddModal2}>Cancelar</button>
