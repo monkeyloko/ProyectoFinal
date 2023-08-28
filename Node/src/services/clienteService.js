@@ -5,62 +5,60 @@ import config from '../models/db.js'
 const clienteTabla = process.env.DB_TABLA_CLIENTE;
 
 
-export class AutoService {
+export class ClienteService {
 
-    getAuto = async () => {
+    getCliente = async () => {
         const pool = await sql.connect(config);
         const response = await pool.request().query(`SELECT * from $ clienteTabla}`);
         console.log(response)
         return response.recordset;
     }
 
-    getAutoById = async (id) => {
+    getClienteById = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, id)
-            .query(`SELECT * from $ clienteTabla} where idAuto = @id`);
+            .input('id', sql.Int, id)
+            .query(`SELECT * from ${clienteTabla} where idCliente = @id`);
         console.log(response)
         return response.recordset[0];
     }
 
-    createAuto = async (auto) => {
+    createCliente = async (cliente) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('patente',sql.NChar, auto?.patente ?? '')
-            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
-            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
-            .input('modelo',sql.NChar, auto?.modelo ?? '')
-            .input('limpio',sql.Bit, auto?.limpio ?? null)
-            .query(`INSERT INTO $ clienteTabla}(patente, fkUbicacion, disponibilidad, modelo, limpio) VALUES (@patente, @fkUbicacion, @disponibilidad, @modelo, @limpio)`);
+            .input('nombreCompleto', sql.NChar, cliente?.nombreCompleto ?? '')
+            .input('dni', sql.Int, cliente?.dni ?? 0)
+            .input('telefono', sql.NChar, cliente?.telefono ?? '')
+            .input('email', sql.NChar, cliente?.email ?? '')
+            .query(`INSERT INTO ${clienteTabla} (nombreCompleto, dni, telefono, email) VALUES (@nombreCompleto, @dni, @telefono, @email)`);
         console.log(response)
         return response.recordset;
     }
 
-    updateAuto = async (id, auto) => {
+    updateCliente = async (id, cliente) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('Id',sql.Int, id)
-            .input('patente',sql.NChar, auto?.patente ?? '')
-            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
-            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
-            .input('modelo',sql.NChar, auto?.modelo ?? '')
-            .input('limpio',sql.Bit, auto?.limpio ?? 0)
-            .query(`UPDATE $ clienteTabla} SET patente = @patente, fkUbicacion = @fkUbicacion, disponibilidad = @disponibilidad, modelo = @modelo, limpio = @limpio WHERE Id = @Id`);
+            .input('idCliente', sql.Int, id)
+            .input('nombreCompleto', sql.NChar, cliente?.nombreCompleto ?? '')
+            .input('dni', sql.Int, cliente?.dni ?? 0)
+            .input('telefono', sql.NChar, cliente?.telefono ?? '')
+            .input('email', sql.NChar, cliente?.email ?? '')
+            .query(`UPDATE ${clienteTabla} SET nombreCompleto = @nombreCompleto, dni = @dni, telefono = @telefono, email = @email WHERE idCliente = @Id`);
         console.log(response)
         return response.recordset;
     }
 
-    deleteAuto = async (id) => {
+    deleteCliente = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, id)
-            .query(`DELETE FROM $ clienteTabla} WHERE idAuto = @id`);
+            .input('id', sql.Int, id)
+            .query(`DELETE FROM ${clienteTabla} WHERE idCliente = @id`);
         console.log(response)
         return response.recordset;
     }
-    
-    
 
-    
-    
+
+
+
+
 }
