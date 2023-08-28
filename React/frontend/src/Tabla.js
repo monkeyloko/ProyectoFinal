@@ -10,6 +10,7 @@ const Tabla = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAuto, setSelectedAuto] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isAddModalOpen2, setIsAddModalOpen2] = useState(false);
   const [auto, setAuto] = useState(null);
 
   useEffect(() => {
@@ -32,6 +33,13 @@ const Tabla = () => {
 
   const closeAddModal = () => {
     setIsAddModalOpen(false);
+  };
+  const openAddModal2 = () => {
+    setIsAddModalOpen2(true);
+  };
+
+  const closeAddModal2 = () => {
+    setIsAddModalOpen2(false);
   };
 
   return (
@@ -70,10 +78,21 @@ const Tabla = () => {
       <button className="btn btn-primary" onClick={openAddModal}>
         Agregar Auto
       </button>
+
+      <button className="btn btn-primary" onClick={openAddModal2}>
+        Crear Contrato
+      </button>
+
       <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal}>
         <h2>Agregar Auto</h2>
-        <Formulario setAuto={setAuto} auto={auto} closeModal={closeAddModal} />
+        <Formulario setAuto={setAuto} closeModal={closeAddModal} />
         <button onClick={closeAddModal}>Cancelar</button>
+      </Modal>
+
+      <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2}>
+        <h2>Crear Contrato</h2>
+
+        <button onClick={closeAddModal2}>Cancelar</button>
       </Modal>
     </div>
   );

@@ -55,25 +55,25 @@ function Formulario({ setAuto, closeModal }) {
             <option value="1">Chalten</option>
             <option value="2">Galpon</option>
             <option value="3">Aeropuerto</option>
-          </select>  
+          </select>
 
           <label>Disponibilidad</label>
-         
+
           <select name="disponibilidad" onChange={handleChange} required>
             <option value="Esta disponible">Esta disponible</option>
             <option value="Esta alquilado">Esta alquilado</option>
-        
-          </select>  
+
+          </select>
           <label>Modelo</label>
           <input type="text" name="modelo" onChange={handleChange} />
 
           <label>Limpio</label>
-          
+
           <select name="limpio" onChange={handleChange} required>
             <option value="1">Esta limpio</option>
             <option value="0">No esta limpio</option>
-        
-          </select>  
+
+          </select>
 
           <button type="submit">Agregar Auto</button>
         </form>
