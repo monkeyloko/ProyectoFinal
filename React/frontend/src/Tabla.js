@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import './Tabla.css';
 import Formulario from './Form';
 import FormContrato from './FormContrato';
+import FormCliente from './FormCliente';
 
 const Tabla = () => {
   const [autos, setAutos] = useState([]);
@@ -12,8 +13,11 @@ const Tabla = () => {
   const [selectedAuto, setSelectedAuto] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isAddModalOpen2, setIsAddModalOpen2] = useState(false);
+  const [isAddModalOpen3, setIsAddModalOpen3] = useState(false);
   const [auto, setAuto] = useState(null);
   const [contrato, setContrato] = useState(null);
+  const [cliente, setCliente] = useState(null);
+
 
   useEffect(() => {
     fetch('http://localhost:5000/autos/')
@@ -42,6 +46,12 @@ const Tabla = () => {
 
   const closeAddModal2 = () => {
     setIsAddModalOpen2(false);
+  };
+  const openAddModal3 = () => {
+    setIsAddModalOpen3(true);
+  };
+  const closeAddModal3 = () => {
+    setIsAddModalOpen3(false);
   };
 
   return (
@@ -85,6 +95,10 @@ const Tabla = () => {
         Crear Contrato
       </button>
 
+      <button className="btn btn-primary" onClick={openAddModal3}>
+        Crear Cliente
+      </button>
+
       <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal}  className="custom-modal">
         <h2>Agregar Auto</h2>
         <Formulario setAuto={setAuto} closeModal={closeAddModal} />
@@ -95,6 +109,12 @@ const Tabla = () => {
         <h2>Crear Contrato</h2>
         <FormContrato setContrato={setContrato} closeModal={closeAddModal2} />
         <button onClick={closeAddModal2}>Cancelar</button>
+      </Modal>
+
+      <Modal isOpen={isAddModalOpen3} onRequestClose={closeAddModal3}  className="custom-modal">
+        <h2>Agregar Cliente</h2>
+        <FormCliente setCliente={setCliente} closeModal={closeAddModal3} />
+        <button onClick={closeAddModal3}>Cancelar</button>
       </Modal>
     </div>
   );
