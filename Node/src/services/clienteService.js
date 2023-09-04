@@ -25,12 +25,13 @@ export class ClienteService {
 
     createCliente = async (cliente) => {
         const pool = await sql.connect(config);
+        console.log(cliente)
         const response = await pool.request()
             .input('nombreCompleto', sql.NChar, cliente?.nombreCompleto ?? '')
             .input('dni', sql.Int, cliente?.dni ?? 0)
             .input('telefono', sql.NChar, cliente?.telefono ?? '')
-            .input('email', sql.NChar, cliente?.email ?? '')
-            .query(`INSERT INTO ${clienteTabla} (nombreCompleto, dni, telefono, email) VALUES (@nombreCompleto, @dni, @telefono, @email)`);
+            .query(`INSERT INTO ${clienteTabla} (nombreCompleto, dni, telefono) VALUES (@nombreCompleto, @dni, @telefono)`);
+            
         console.log(response)
         return response.recordset;
     }

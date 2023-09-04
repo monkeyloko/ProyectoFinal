@@ -36,9 +36,15 @@ router.get('/:id', async (req, res) => {
     return res.status(200).json(cliente);
 });
 
-router.post('', async (req, res) => {
-    const cliente = await clienteService.createCliente(req.body);
-    return res.status(201).json(cliente);
+router.post('', async(req, res) => {
+    try {
+        let r = await clienteService.createCliente(req.body);
+        console.log(r)
+        res.status(200).json({message: 'character inserted'});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: 'insert failed'});
+    }
 });
 
 router.put('', async (req, res) => {
