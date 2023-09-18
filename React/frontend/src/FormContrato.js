@@ -6,7 +6,7 @@ function FormContrato({ setContrato, closeModal }) {
     const [clientes, setClientes] = useState([]);
     const [autos, setAutos] = useState([])
     const [ubicaciones, setUbicaciones] = useState([]);
-    const [id_dañoEntrega, setId_dañoEntrega] = useState(null);
+    const [iddañoEntrega, setIddañoEntrega] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const [contratoData, setContratoData] = useState({
@@ -28,19 +28,17 @@ function FormContrato({ setContrato, closeModal }) {
             ...contratoData,
             [e.target.name]: e.target.value,
         });
-
-        
-        //contracto.dañoentrega = 
-
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch(`http://localhost:5000/daños/dañoEntrega/${contratoData.fkAuto}`)
+        
+        fetch(`http://localhost:5000/danos/danoEntrega/${contratoData.fkAuto}`)
         .then((response) => response.json())
         .then((dañoJson) => {
-            console.log('daño', dañoJson);
-            setId_dañoEntrega(dañoJson);
+            console.log("WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO")
+            console.log(dañoJson);
+            setIddañoEntrega(dañoJson);
             setIsLoading(false);
         });
 
@@ -50,7 +48,7 @@ function FormContrato({ setContrato, closeModal }) {
             fechaDevolucion: contratoData.fechaDevolucion,
             fkCliente: contratoData.fkCliente,
             fkAuto: contratoData.fkAuto,
-            id_dañoEntrega: id_dañoEntrega,
+            id_dañoEntrega: iddañoEntrega,
             id_dañoDevolucion: contratoData.id_dañoDevolucion,
             ubicacionEntrega: contratoData.ubicacionEntrega,
             ubicacionDevolucion: contratoData.ubicacionDevolucion,
@@ -68,6 +66,7 @@ function FormContrato({ setContrato, closeModal }) {
                 console.error(error);
             });
     };
+
 
     useEffect(() => {
         fetch('http://localhost:5000/cliente/')

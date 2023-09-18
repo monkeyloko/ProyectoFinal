@@ -23,7 +23,6 @@ const Tabla = () => {
     fetch('http://localhost:5000/autos/')
       .then((response) => response.json())
       .then((autosJson) => {
-        console.log('autos', autosJson);
         setAutos(autosJson);
         setIsLoading(false);
       });
