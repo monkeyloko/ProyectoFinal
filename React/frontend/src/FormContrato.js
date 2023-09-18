@@ -6,6 +6,7 @@ function FormContrato({ setContrato, closeModal }) {
     const [clientes, setClientes] = useState([]);
     const [autos, setAutos] = useState([])
     const [ubicaciones, setUbicaciones] = useState([]);
+    const [id_dañoEntrega, setId_dañoEntrega] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const [contratoData, setContratoData] = useState({
@@ -20,22 +21,36 @@ function FormContrato({ setContrato, closeModal }) {
         ubicacionDevolucion: '',
     });
 
+   
+
     const handleChange = (e) => {
         setContratoData({
             ...contratoData,
             [e.target.name]: e.target.value,
         });
+
+        
+        //contracto.dañoentrega = 
+
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        fetch(`http://localhost:5000/daños/dañoEntrega/${contratoData.fkAuto}`)
+        .then((response) => response.json())
+        .then((dañoJson) => {
+            console.log('daño', dañoJson);
+            setId_dañoEntrega(dañoJson);
+            setIsLoading(false);
+        });
+
         const data = {
             precio: contratoData.precio,
             fechaAlquilado: contratoData.fechaAlquilado,
             fechaDevolucion: contratoData.fechaDevolucion,
             fkCliente: contratoData.fkCliente,
             fkAuto: contratoData.fkAuto,
-            id_dañoEntrega: contratoData.id_dañoEntrega,
+            id_dañoEntrega: id_dañoEntrega,
             id_dañoDevolucion: contratoData.id_dañoDevolucion,
             ubicacionEntrega: contratoData.ubicacionEntrega,
             ubicacionDevolucion: contratoData.ubicacionDevolucion,
@@ -76,6 +91,7 @@ function FormContrato({ setContrato, closeModal }) {
                 setUbicaciones(ubicacionJson);
                 setIsLoading(false);
             });
+           
     }, []);
 
     return (
