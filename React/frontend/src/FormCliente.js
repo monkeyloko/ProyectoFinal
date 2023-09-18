@@ -39,7 +39,7 @@ function FormCliente({ setCliente, closeModal }) {
             });
     };
 
-   
+
 
 
     return (
@@ -52,7 +52,7 @@ function FormCliente({ setCliente, closeModal }) {
                     <label>DNI</label>
                     <input type="number" name="dni" onChange={handleChange} required />
 
-                    <label>telefono</label>
+                    <label>Telefono</label>
                     <input type="text" name="telefono" onChange={handleChange} required />
 
                     <button type="submit">Crear Cliente</button>

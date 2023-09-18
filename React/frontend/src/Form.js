@@ -52,6 +52,7 @@ function Formulario({ setAuto, closeModal }) {
 
           <label>Ubicacion</label>
           <select name="ubicacion" onChange={handleChange} required>
+            <option value="">Selecciona una ubicacion</option>
             <option value="1">Chalten</option>
             <option value="2">Galpon</option>
             <option value="3">Aeropuerto</option>
@@ -60,6 +61,7 @@ function Formulario({ setAuto, closeModal }) {
           <label>Disponibilidad</label>
 
           <select name="disponibilidad" onChange={handleChange} required>
+            <option value="">Selecciona una disponibilidad</option>
             <option value="Esta disponible">Esta disponible</option>
             <option value="Esta alquilado">Esta alquilado</option>
 
@@ -70,6 +72,7 @@ function Formulario({ setAuto, closeModal }) {
           <label>Limpio</label>
 
           <select name="limpio" onChange={handleChange} required>
+            <option value="">Selecciona un estado</option>
             <option value="1">Esta limpio</option>
             <option value="0">No esta limpio</option>
 

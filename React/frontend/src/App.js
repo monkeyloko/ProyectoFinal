@@ -1,19 +1,28 @@
 import './App.css';
 import Tabla from './Tabla';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './Layout';
+import TablaContratos from './TablaContratos';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import DetallesAuto from './DetallesAuto';
+import NoPage from './NoPage';
 import Modal from './Modal';
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Tabla />} />
+
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />} >
+          <Route index element={<Tabla />} />
           <Route path="/autos/:idAuto" element={<DetallesAuto />} />
-        </Routes>
-      </Router>
-    </div>
+          <Route path="/contratos" element={<TablaContratos />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 

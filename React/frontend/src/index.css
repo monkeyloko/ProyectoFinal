@@ -14,3 +14,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #e8e8e8;
+}
+
+ul li {
+  float: left;
+  padding: 14px 16px;
+
+}
+
+li a {
+  color: grey;
+  text-decoration: none;
+}
