@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.get('/dañoEntrega/:id', async (req, res) => {
+router.get('/danoEntrega/:id', async (req, res) => {
     const daños = await dañosService.getLastDañoByCar(req.params.id);
     return res.status(200).json(daños);
 });

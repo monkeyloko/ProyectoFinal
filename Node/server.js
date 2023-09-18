@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/autos", AutoRouter);
 app.use("/ubicacion", UbicacionRouter);
 app.use("/cliente", ClienteRouter);
-app.use("/daños", DañosRouter);
+app.use("/danos", DañosRouter);
 app.use("/reparacion",ReparacionRouter);
 app.use("/contrato", ContratoRouter);
 
