@@ -35,6 +35,12 @@ router.get('/:id', async (req, res) => {
     return res.status(200).json(daños);
 });
 
+
+router.get('/dañoEntrega/:id', async (req, res) => {
+    const daños = await dañosService.getLastDañoByCar(req.params.id);
+    return res.status(200).json(daños);
+});
+
 router.post('', async (req, res) => {
     const daños = await dañosService.dañosContrato(req.body);
     return res.status(201).json(daños);

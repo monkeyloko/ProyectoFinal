@@ -13,6 +13,14 @@ export class DañosService {
         console.log(response)
         return response.recordset;
     }
+    getLastDañoByCar = async (idAuto) => {
+        const pool = await sql.connect(config);
+        const response = await pool.request()
+            .input('idAuto', sql.Int, idAuto)
+            .query(`SELECT TOP 1 idDaños FROM ${dañosTabla} WHERE fkAuto = @idAuto ORDER BY fecha DESC`);
+        console.log(response)
+        return response.recordset;
+    }
 
     getDañosById = async (id) => {
         const pool = await sql.connect(config);
