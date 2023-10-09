@@ -121,7 +121,7 @@ function FormContrato({ setContrato, closeModal }) {
                         <option value="">Selecciona un auto</option>
                         {autos.map((auto) => (
                             <option key={auto.idAuto} value={auto.idAuto}>
-                                {auto.patente}
+                                {auto.modelo} - {auto.patente}
                             </option>
                         ))}
                     </select>

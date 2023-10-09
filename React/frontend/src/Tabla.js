@@ -18,7 +18,6 @@ const Tabla = () => {
   const [contrato, setContrato] = useState(null);
   const [cliente, setCliente] = useState(null);
 
-
   useEffect(() => {
     fetch('http://localhost:5000/autos/')
       .then((response) => response.json())
@@ -30,6 +29,10 @@ const Tabla = () => {
 
   const handleClick = (auto) => {
     setSelectedAuto(auto);
+  };
+
+  const handleEditClick = (auto) => { 
+    console.log('Editar auto:', auto);
   };
 
   const openAddModal = () => {
@@ -66,6 +69,7 @@ const Tabla = () => {
             <th>Disponible</th>
             <th>Daños</th>
             <th>En arreglo</th>
+            <th>Editar</th> {/* Nueva columna para el botón de edición */}
           </tr>
         </thead>
         <tbody>
@@ -82,6 +86,9 @@ const Tabla = () => {
                 <td>- -</td>
                 <td>- -</td>
                 <td>- -</td>
+                <td>
+                  <button onClick={() => handleEditClick(auto)}>Editar</button>
+                </td> 
               </tr>
             ))}
         </tbody>
@@ -98,7 +105,7 @@ const Tabla = () => {
         Crear Cliente
       </button>
 
-      <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal}  className="custom-modal">
+      <Modal isOpen={isAddModalOpen} onRequestClose={closeAddModal} className="custom-modal">
         <h2>Agregar Auto</h2>
         <Formulario setAuto={setAuto} closeModal={closeAddModal} />
         <button onClick={closeAddModal}>Cancelar</button>
@@ -110,7 +117,7 @@ const Tabla = () => {
         <button onClick={closeAddModal2}>Cancelar</button>
       </Modal>
 
-      <Modal isOpen={isAddModalOpen3} onRequestClose={closeAddModal3}  className="custom-modal">
+      <Modal isOpen={isAddModalOpen3} onRequestClose={closeAddModal3} className="custom-modal">
         <h2>Agregar Cliente</h2>
         <FormCliente setCliente={setCliente} closeModal={closeAddModal3} />
         <button onClick={closeAddModal3}>Cancelar</button>
