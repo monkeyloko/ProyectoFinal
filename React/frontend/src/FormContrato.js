@@ -60,7 +60,7 @@ function FormContrato({ setContrato, closeModal }) {
                 console.log(response.data);
                 setContrato(response.data);
                 closeModal();
-                window.location.reload();
+                //window.location.reload();
             })
             .catch((error) => {
                 console.error(error);
