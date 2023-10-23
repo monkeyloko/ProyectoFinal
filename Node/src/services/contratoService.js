@@ -3,6 +3,7 @@ import 'dotenv/config'
 import config from '../models/db.js'
 
 const contratoTabla = process.env.DB_TABLA_CONTRATO;
+const danosTabla = process.env.DB_TABLA_DANOS;
 
 
 export class ContratoService {
@@ -25,20 +26,40 @@ export class ContratoService {
 
     createContrato = async (contrato) => {
         const pool = await sql.connect(config);
-        const response = await pool.request()
+        
+        // Obtener el último idDaños del auto relacionado al contrato
+        const lastDanosQuery = await pool.request()
+    .input('fkAuto', sql.Int, contrato.fkAuto)
+    .query(`SELECT TOP 1 idDaños FROM ${danosTabla} WHERE fkAuto = @fkAuto ORDER BY fecha DESC`);
+
+
+        
+        const lastDanos = lastDanosQuery.recordset[0];
+        const id_dañoEntrega = lastDanos.idDaños;
+        console.log("EL ID DAÑOS: ",id_dañoEntrega)
+      
+        
+     
+    
+        // Crear el registro de contrato
+        const responseContrato = await pool.request()
             .input('precio', sql.Float, contrato?.precio ?? '')
             .input('fechaAlquilado', sql.Date, contrato?.fechaAlquilado ?? '')
             .input('fechaDevolucion', sql.Date, contrato?.fechaDevolucion ?? '')
             .input('fkCliente', sql.Int, contrato?.fkCliente ?? 0)
             .input('fkAuto', sql.Int, contrato?.fkAuto ?? 0)
-            .input('id_dañoEntrega', sql.Int, contrato?.id_dañoEntrega ?? null)
+            .input('id_dañoEntrega', sql.Int, id_dañoEntrega)
             .input('id_dañoDevolucion', sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega', sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion', sql.Int, contrato?.ubicacionDevolucion ?? 0)
             .query(`INSERT INTO ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_dañoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
-        console.log(response)
-        return response.recordset;
+        
+        console.log(responseContrato);
+        return responseContrato.recordset;
     }
+    
+    
+    
 
     updateContrato = async (id, contrato) => {
         const pool = await sql.connect(config);
@@ -66,9 +87,5 @@ export class ContratoService {
         console.log(response)
         return response.recordset;
     }
-
-
-
-
 
 }
