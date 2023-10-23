@@ -99,10 +99,18 @@ const Tabla = () => {
                   )}
                 </td>
                 <td>{auto.fkUbicacion}</td>
-                <td>{auto.disponibilidad}</td>
                 <td>{editableRow === auto.idAuto ? (
                     <input
                       type="text"
+                      value={auto.disponibilidad}
+                      // Aquí deberías tener un controlador de cambios para el modelo
+                    />
+                  ) : (
+                    auto.disponibilidad
+                  )}</td>
+                <td>{editableRow === auto.idAuto ? (
+                    <input
+                      type="bool"
                       value={auto.limpio}
                       // Aquí deberías tener un controlador de cambios para el modelo
                     />
