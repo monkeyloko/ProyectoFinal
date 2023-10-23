@@ -8,7 +8,6 @@ import FormCliente from './FormCliente';
 
 const Tabla = () => {
   const [autos, setAutos] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAuto, setSelectedAuto] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -17,6 +16,7 @@ const Tabla = () => {
   const [auto, setAuto] = useState(null);
   const [contrato, setContrato] = useState(null);
   const [cliente, setCliente] = useState(null);
+  const [editableRow, setEditableRow] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:5000/autos/')
@@ -27,12 +27,17 @@ const Tabla = () => {
       });
   }, []);
 
-  const handleClick = (auto) => {
-    setSelectedAuto(auto);
+  const handleEditClick = (auto) => {
+    setEditableRow(auto.idAuto);
   };
 
-  const handleEditClick = (auto) => { 
-    console.log('Editar auto:', auto);
+  const handleSaveClick = (auto) => {
+    // Aquí puedes realizar la lógica para guardar los cambios en el auto
+    setEditableRow(null);
+  };
+
+  const handleCancelClick = () => {
+    setEditableRow(null);
   };
 
   const openAddModal = () => {
@@ -42,6 +47,7 @@ const Tabla = () => {
   const closeAddModal = () => {
     setIsAddModalOpen(false);
   };
+
   const openAddModal2 = () => {
     setIsAddModalOpen2(true);
   };
@@ -49,9 +55,11 @@ const Tabla = () => {
   const closeAddModal2 = () => {
     setIsAddModalOpen2(false);
   };
+
   const openAddModal3 = () => {
     setIsAddModalOpen3(true);
   };
+
   const closeAddModal3 = () => {
     setIsAddModalOpen3(false);
   };
@@ -69,26 +77,48 @@ const Tabla = () => {
             <th>Disponible</th>
             <th>Daños</th>
             <th>En arreglo</th>
-            <th>Editar</th> {/* Nueva columna para el botón de edición */}
+            <th>Editar</th>
           </tr>
         </thead>
         <tbody>
           {!isLoading &&
             autos.map((auto) => (
-              <tr key={auto.idAuto} onClick={() => handleClick(auto)}>
+              <tr key={auto.idAuto}>
                 <td>
                   <Link to={`/autos/${auto.idAuto}`}>{auto.patente}</Link>
                 </td>
-                <td>{auto.modelo}</td>
+                <td>
+                  {editableRow === auto.idAuto ? (
+                    <input
+                      type="text"
+                      value={auto.modelo}
+                      // Aquí deberías tener un controlador de cambios para el modelo
+                    />
+                  ) : (
+                    auto.modelo
+                  )}
+                </td>
                 <td>{auto.fkUbicacion}</td>
                 <td>{auto.disponibilidad}</td>
-                <td>{auto.limpio ? 'Esta limpio' : 'No esta limpio'}</td>
+                <td>{editableRow === auto.idAuto ? (
+                    <input
+                      type="text"
+                      value={auto.limpio}
+                      // Aquí deberías tener un controlador de cambios para el modelo
+                    />
+                  ) : (
+                    auto.limpio ? 'Está limpio' : 'No está limpio'
+                  )}</td>
                 <td>- -</td>
                 <td>- -</td>
                 <td>- -</td>
                 <td>
-                  <button onClick={() => handleEditClick(auto)}>Editar</button>
-                </td> 
+                  {editableRow === auto.idAuto ? (
+                    <button onClick={() => handleSaveClick(auto)}>Guardar</button>
+                  ) : (
+                    <button onClick={() => handleEditClick(auto)}>Editar</button>
+                  )}
+                </td>
               </tr>
             ))}
         </tbody>
@@ -111,7 +141,7 @@ const Tabla = () => {
         <button onClick={closeAddModal}>Cancelar</button>
       </Modal>
 
-      <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2} className="custom-modal" >
+      <Modal isOpen={isAddModalOpen2} onRequestClose={closeAddModal2} className="custom-modal">
         <h2>Crear Contrato</h2>
         <FormContrato setContrato={setContrato} closeModal={closeAddModal2} />
         <button onClick={closeAddModal2}>Cancelar</button>

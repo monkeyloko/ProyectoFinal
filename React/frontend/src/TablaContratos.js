@@ -23,7 +23,6 @@ const TablaContratos = () => {
 			});
 	};
 
-
 	useEffect(() => {
 		fetchContratos();
 	}, []);
@@ -62,13 +61,16 @@ const TablaContratos = () => {
 				fechaDevolucion: fechaDevolucion.toISOString().split('T')[0],
 			};
 
-			const response = await fetch(`http://localhost:5000/contrato/${selectedContrato.idContrato}`, {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(formattedContrato),
-			});
+			const response = await fetch(
+				`http://localhost:5000/contrato/${selectedContrato.idContrato}`,
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(formattedContrato),
+				}
+			);
 
 			if (response.ok) {
 				// Si la actualización fue exitosa, recargamos la lista de contratos.
@@ -82,6 +84,12 @@ const TablaContratos = () => {
 		}
 	};
 
+	// Filtrar los contratos para mostrar solo los vigentes
+	const contratosVigentes = contratos.filter((contrato) => {
+		const fechaDevolucion = new Date(contrato.fechaDevolucion);
+		const fechaHoy = new Date();
+		return fechaDevolucion >= fechaHoy;
+	});
 
 	return (
 		<div className="Tabla">
@@ -96,7 +104,7 @@ const TablaContratos = () => {
 				</thead>
 				<tbody>
 					{!isLoading &&
-						contratos.map((contrato) => (
+						contratosVigentes.map((contrato) => (
 							<tr
 								key={contrato.idContrato}
 								onClick={() => openEditModal(contrato)}
@@ -122,27 +130,25 @@ const TablaContratos = () => {
 							value={editedContrato?.precio || ''}
 							onChange={handleInputChange}
 						/>
-						<div className="form-group">
-							<label>Fecha de Entrega</label>
-							<input
-								type="date"
-								name="fechaAlquilado"
-								value={editedContrato?.fechaAlquilado || ''}
-								onChange={handleInputChange}
-							/>
-						</div>
-						<div className="form-group">
-							<label>Fecha de Devolucion</label>
-							<input
-								type="date"
-								name="fechaDevolucion"
-								value={editedContrato?.fechaDevolucion || ''}
-								onChange={handleInputChange}
-							/>
-						</div>
-
 					</div>
-					{/* Agregar otros campos del contrato aquí */}
+					<div className="form-group">
+						<label>Fecha de Entrega</label>
+						<input
+							type="date"
+							name="fechaAlquilado"
+							value={editedContrato?.fechaAlquilado || ''}
+							onChange={handleInputChange}
+						/>
+					</div>
+					<div className="form-group">
+						<label>Fecha de Devolucion</label>
+						<input
+							type="date"
+							name="fechaDevolucion"
+							value={editedContrato?.fechaDevolucion || ''}
+							onChange={handleInputChange}
+						/>
+					</div>
 					<button type="button" onClick={updateContrato}>
 						Guardar Cambios
 					</button>
