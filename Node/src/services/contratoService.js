@@ -33,10 +33,10 @@ export class ContratoService {
     .query(`SELECT TOP 1 idDaños FROM ${danosTabla} WHERE fkAuto = @fkAuto ORDER BY fecha DESC`);
 
 
-        
+
         const lastDanos = lastDanosQuery.recordset[0];
-        const id_dañoEntrega = lastDanos.idDaños;
-        console.log("EL ID DAÑOS: ",id_dañoEntrega)
+        const id_danoEntrega = lastDanos.idDaños;
+        console.log("EL ID DAÑOS: ",id_danoEntrega)
       
         
      
@@ -48,11 +48,11 @@ export class ContratoService {
             .input('fechaDevolucion', sql.Date, contrato?.fechaDevolucion ?? '')
             .input('fkCliente', sql.Int, contrato?.fkCliente ?? 0)
             .input('fkAuto', sql.Int, contrato?.fkAuto ?? 0)
-            .input('id_dañoEntrega', sql.Int, id_dañoEntrega)
+            .input('id_dañoEntrega', sql.Int, id_danoEntrega)
             .input('id_dañoDevolucion', sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega', sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion', sql.Int, contrato?.ubicacionDevolucion ?? 0)
-            .query(`INSERT INTO ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_dañoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
+            .query(`INSERT INTO ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_danoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
         
         console.log(responseContrato);
         return responseContrato.recordset;
