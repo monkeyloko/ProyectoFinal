@@ -52,7 +52,7 @@ export class ContratoService {
             .input('id_dañoDevolucion', sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega', sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion', sql.Int, contrato?.ubicacionDevolucion ?? 0)
-            .query(`INSERT INTO ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_danoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
+            .query(`INSERT INTO  ${contratoTabla}(precio, fechaAlquilado, fechaDevolucion, fkCliente, fkAuto, id_dañoEntrega, id_dañoDevolucion, ubicacionEntrega, ubicacionDevolucion) VALUES (@precio, @fechaAlquilado, @fechaDevolucion, @fkCliente, @fkAuto, @id_danoEntrega, @id_dañoDevolucion, @ubicacionEntrega, @ubicacionDevolucion)`);
         
         console.log(responseContrato);
         return responseContrato.recordset;
