@@ -5,6 +5,7 @@ import './Tabla.css';
 import Formulario from './Form';
 import FormContrato from './FormContrato';
 import FormCliente from './FormCliente';
+import UploadWidget from './components/UploadWidget';
 
 const Tabla = () => {
   const [autos, setAutos] = useState([]);
