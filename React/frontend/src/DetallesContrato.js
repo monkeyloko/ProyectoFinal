@@ -41,18 +41,18 @@ const DetallesContrato = () => {
                     <p>Fecha de Entrega: {contrato.fechaAlquilado}</p>
                     <p>Fecha de Devolución: {contrato.fechaDevolucion}</p>
 
-                    <button onClick={openEditModal}>Editar Contrato</button>
+
                 </div>
             ) : (
                 <p>Cargando detalles del contrato...</p>
             )}
 
-            <Modal isOpen={isEditModalOpen} onRequestClose={closeEditModal} className="custom-modal">
+            {/*<Modal isOpen={isEditModalOpen} onRequestClose={closeEditModal} className="custom-modal">
                 <h2>Editar Contrato</h2>
 
                 <FormEditContrato setContrato={setContrato} closeModal={closeEditModal} />
                 <button onClick={closeEditModal}>Cancelar</button>
-            </Modal>
+            </Modal>{*/}
         </div>
     );
 };
