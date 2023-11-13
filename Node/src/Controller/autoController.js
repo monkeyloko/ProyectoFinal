@@ -38,6 +38,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('', async (req, res) => {
     const auto = await autoService.createAuto(req.body);
+    console.log(auto)
     return res.status(201).json(auto);
 });
 

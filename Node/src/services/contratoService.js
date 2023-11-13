@@ -48,7 +48,7 @@ export class ContratoService {
             .input('fechaDevolucion', sql.Date, contrato?.fechaDevolucion ?? '')
             .input('fkCliente', sql.Int, contrato?.fkCliente ?? 0)
             .input('fkAuto', sql.Int, contrato?.fkAuto ?? 0)
-            .input('id_danoEntrega', sql.Int, id_danoEntrega ?? null)
+            .input('id_danoEntrega', sql.Int, id_danoEntrega ?? '')
             .input('id_dañoDevolucion', sql.Int, contrato?.id_dañoDevolucion ?? null)
             .input('ubicacionEntrega', sql.Int, contrato?.ubicacionEntrega ?? 0)
             .input('ubicacionDevolucion', sql.Int, contrato?.ubicacionDevolucion ?? 0)

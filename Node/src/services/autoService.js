@@ -3,6 +3,7 @@ import 'dotenv/config'
 import config from '../models/db.js'
 
 const autoTabla = process.env.DB_TABLA_AUTO;
+const dañosTabla = process.env.DB_TABLA_DANOS;
 
 
 export class AutoService {
@@ -32,6 +33,23 @@ export class AutoService {
             .input('modelo', sql.NChar, auto?.modelo ?? '')
             .input('limpio', sql.Bit, auto?.limpio ?? null)
             .query(`INSERT INTO ${autoTabla}(patente, fkUbicacion, disponibilidad, modelo, limpio) VALUES (@patente, @fkUbicacion, @disponibilidad, @modelo, @limpio)`);
+
+           const ultimoAuto = await pool.request().query(`SELECT TOP 1 idAuto from ${autoTabla} ORDER BY idAuto desc`);
+
+            //const getLastCommandQueueIdResponse = await pool.query('SELECT LAST_INSERT_ID() AS LAST_INSERT_ID');
+            console.log("response;  ", ultimoAuto.recordset[0].idAuto)
+            
+          
+
+            const response2 = await pool.request()
+            .input('fotoActual', sql.NChar, 'foto')
+            .input('fecha', sql.Date, '2005-09-10')
+            .input('fkAuto', sql.Int, ultimoAuto.recordset[0].idAuto ?? '')
+            .input('descripcion', sql.NChar, 'auto recien creado')
+            .query(`INSERT INTO ${dañosTabla}(fotoActual, fecha, fkAuto, descripcion) VALUES (@fotoActual, @fecha, @fkAuto, @descripcion)`);
+    
+        
+            
         console.log(response)
         return response.recordset;
     }
