@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-rou
 import DetallesAuto from './DetallesAuto';
 import NoPage from './NoPage';
 import Modal from './Modal';
+import DetallesContrato from './DetallesContrato';
+import Clientes from './Clientes'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route index element={<Tabla />} />
           <Route path="/autos/:idAuto" element={<DetallesAuto />} />
           <Route path="/contratos" element={<TablaContratos />} />
+          <Route path="/clientes" element={<Clientes />} />
+          <Route path="/contratos/:idContrato" element={<DetallesContrato />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

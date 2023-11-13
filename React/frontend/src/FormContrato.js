@@ -21,7 +21,7 @@ function FormContrato({ setContrato, closeModal }) {
         ubicacionDevolucion: '',
     });
 
-   
+
 
     const handleChange = (e) => {
         setContratoData({
@@ -32,15 +32,15 @@ function FormContrato({ setContrato, closeModal }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         fetch(`http://localhost:5000/danos/danoEntrega/${contratoData.fkAuto}`)
-        .then((response) => response.json())
-        .then((dañoJson) => {
-            console.log("WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO")
-            console.log(dañoJson);
-            setIddañoEntrega(dañoJson);
-            setIsLoading(false);
-        });
+            .then((response) => response.json())
+            .then((dañoJson) => {
+                console.log("WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO WODOLIO")
+                console.log(dañoJson);
+                setIddañoEntrega(dañoJson);
+                setIsLoading(false);
+            });
 
         const data = {
             precio: contratoData.precio,
@@ -53,7 +53,6 @@ function FormContrato({ setContrato, closeModal }) {
             ubicacionEntrega: contratoData.ubicacionEntrega,
             ubicacionDevolucion: contratoData.ubicacionDevolucion,
         };
-
         axios
             .post('http://localhost:5000/contrato/', data)
             .then((response) => {
@@ -76,21 +75,21 @@ function FormContrato({ setContrato, closeModal }) {
                 setClientes(clientesJson);
                 setIsLoading(false);
             });
-            fetch('http://localhost:5000/autos/')
+        fetch('http://localhost:5000/autos/')
             .then((response) => response.json())
             .then((autosJson) => {
                 console.log('clientes', autosJson);
                 setAutos(autosJson);
                 setIsLoading(false);
             });
-            fetch('http://localhost:5000/ubicacion/')
+        fetch('http://localhost:5000/ubicacion/')
             .then((response) => response.json())
             .then((ubicacionJson) => {
                 console.log('clientes', ubicacionJson);
                 setUbicaciones(ubicacionJson);
                 setIsLoading(false);
             });
-           
+
     }, []);
 
     return (

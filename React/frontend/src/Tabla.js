@@ -5,19 +5,26 @@ import './Tabla.css';
 import Formulario from './Form';
 import FormContrato from './FormContrato';
 import FormCliente from './FormCliente';
-import UploadWidget from './components/UploadWidget';
+
+class Auto {
+  idAuto;
+  patente;
+  fkUbicacion;
+  disponibilidad;
+  modelo;
+  limpio;
+}
 
 const Tabla = () => {
   const [autos, setAutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedAuto, setSelectedAuto] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isAddModalOpen2, setIsAddModalOpen2] = useState(false);
   const [isAddModalOpen3, setIsAddModalOpen3] = useState(false);
-  const [auto, setAuto] = useState(null);
-  const [contrato, setContrato] = useState(null);
+  const [ubicaciones, setUbicaciones] = useState([])
+  const [auto, setAuto] = useState(new Auto());
   const [cliente, setCliente] = useState(null);
-  const [editableRow, setEditableRow] = useState(null);
+  const [contrato, setContrato] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:5000/autos/')
@@ -26,19 +33,16 @@ const Tabla = () => {
         setAutos(autosJson);
         setIsLoading(false);
       });
+    fetch('http://localhost:5000/ubicacion/')
+      .then((response) => response.json())
+      .then((ubicacionesJson) => {
+        setUbicaciones(ubicacionesJson);
+      });
   }, []);
 
-  const handleEditClick = (auto) => {
-    setEditableRow(auto.idAuto);
-  };
-
-  const handleSaveClick = (auto) => {
-    // Aquí puedes realizar la lógica para guardar los cambios en el auto
-    setEditableRow(null);
-  };
-
-  const handleCancelClick = () => {
-    setEditableRow(null);
+  const getUbicacionName = (ubicacionId) => {
+    const ubicacion = ubicaciones.find((u) => u.idUbicacion === ubicacionId);
+    return ubicacion ? ubicacion.nombre : 'Ubicación no encontrada';
   };
 
   const openAddModal = () => {
@@ -73,61 +77,19 @@ const Tabla = () => {
             <th>Patente</th>
             <th>Modelo</th>
             <th>Ubicacion</th>
-            <th>Alquilado</th>
-            <th>Estado</th>
-            <th>Disponible</th>
-            <th>Daños</th>
-            <th>En arreglo</th>
-            <th>Editar</th>
+            <th>Disponibilidad</th>
+            <th>Limpio</th>
           </tr>
         </thead>
         <tbody>
           {!isLoading &&
             autos.map((auto) => (
               <tr key={auto.idAuto}>
-                <td>
-                  <Link to={`/autos/${auto.idAuto}`}>{auto.patente}</Link>
-                </td>
-                <td>
-                  {editableRow === auto.idAuto ? (
-                    <input
-                      type="text"
-                      value={auto.modelo}
-                      // Aquí deberías tener un controlador de cambios para el modelo
-                    />
-                  ) : (
-                    auto.modelo
-                  )}
-                </td>
-                <td>{auto.fkUbicacion}</td>
-                <td>{editableRow === auto.idAuto ? (
-                    <input
-                      type="text"
-                      value={auto.disponibilidad}
-                      // Aquí deberías tener un controlador de cambios para el modelo
-                    />
-                  ) : (
-                    auto.disponibilidad
-                  )}</td>
-                <td>{editableRow === auto.idAuto ? (
-                    <input
-                      type="bool"
-                      value={auto.limpio}
-                      // Aquí deberías tener un controlador de cambios para el modelo
-                    />
-                  ) : (
-                    auto.limpio ? 'Está limpio' : 'No está limpio'
-                  )}</td>
-                <td>- -</td>
-                <td>- -</td>
-                <td>- -</td>
-                <td>
-                  {editableRow === auto.idAuto ? (
-                    <button onClick={() => handleSaveClick(auto)}>Guardar</button>
-                  ) : (
-                    <button onClick={() => handleEditClick(auto)}>Editar</button>
-                  )}
-                </td>
+                <td><Link to={`/autos/${auto.idAuto}`}>{auto.patente}</Link></td>
+                <td>{auto.modelo}</td>
+                <td>{getUbicacionName(auto.fkUbicacion)}</td>
+                <td>{auto.disponibilidad}</td>
+                <td>{auto.limpio ? 'Sí' : 'No'}</td>
               </tr>
             ))}
         </tbody>
