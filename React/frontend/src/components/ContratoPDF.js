@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {Document, Page, Text, View, Image} from "@react-pdf/renderer"
 import './Plantilla.css'
 import moment from 'moment';
+import {Document, Page, Text, View, Image} from "@react-pdf/renderer"
 
 const Plantilla = () => {
     const { idContrato } = useParams();
@@ -43,9 +43,7 @@ const Plantilla = () => {
     }, [idContrato]);
 
   return (
-
-    <> 
-     <div className='bodyContrato'>
+    <div className='bodyContrato'>
     <div className='container'>
       <h1>Contrato de Alquiler</h1>
       <p>
@@ -316,7 +314,6 @@ const Plantilla = () => {
     <button className='btn' > Generar PDF </button>
     </div>
     
-    </>
   
   );
 };

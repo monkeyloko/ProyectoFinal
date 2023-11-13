@@ -36,7 +36,7 @@ function Formulario({ setAuto, closeModal }) {
         console.log(response.data);
         setAuto(response.data);
         closeModal();
-        window.location.reload()
+       // window.location.reload()
       })
       .catch((error) => {
         console.error(error);
