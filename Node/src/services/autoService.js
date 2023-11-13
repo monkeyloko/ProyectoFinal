@@ -17,7 +17,7 @@ export class AutoService {
     getAutoById = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, id)
+            .input('id', sql.Int, id)
             .query(`SELECT * from ${autoTabla} where idAuto = @id`);
         console.log(response)
         return response.recordset[0];
@@ -26,11 +26,11 @@ export class AutoService {
     createAuto = async (auto) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('patente',sql.NChar, auto?.patente ?? '')
-            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
-            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
-            .input('modelo',sql.NChar, auto?.modelo ?? '')
-            .input('limpio',sql.Bit, auto?.limpio ?? null)
+            .input('patente', sql.NChar, auto?.patente ?? '')
+            .input('fkUbicacion', sql.Int, auto?.fkUbicacion ?? 0)
+            .input('disponibilidad', sql.NChar, auto?.disponibilidad ?? '')
+            .input('modelo', sql.NChar, auto?.modelo ?? '')
+            .input('limpio', sql.Bit, auto?.limpio ?? null)
             .query(`INSERT INTO ${autoTabla}(patente, fkUbicacion, disponibilidad, modelo, limpio) VALUES (@patente, @fkUbicacion, @disponibilidad, @modelo, @limpio)`);
         console.log(response)
         return response.recordset;
@@ -39,13 +39,13 @@ export class AutoService {
     updateAuto = async (id, auto) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('Id',sql.Int, id)
-            .input('patente',sql.NChar, auto?.patente ?? '')
-            .input('fkUbicacion',sql.Int, auto?.fkUbicacion ?? 0)
-            .input('disponibilidad',sql.NChar, auto?.disponibilidad ?? '')
-            .input('modelo',sql.NChar, auto?.modelo ?? '')
-            .input('limpio',sql.Bit, auto?.limpio ?? 0)
-            .query(`UPDATE ${autoTabla} SET patente = @patente, fkUbicacion = @fkUbicacion, disponibilidad = @disponibilidad, modelo = @modelo, limpio = @limpio WHERE Id = @Id`);
+            .input('idAuto', sql.Int, id)
+            .input('patente', sql.NChar, auto?.patente ?? '')
+            .input('fkUbicacion', sql.Int, auto?.fkUbicacion ?? 0)
+            .input('disponibilidad', sql.NChar, auto?.disponibilidad ?? '')
+            .input('modelo', sql.NChar, auto?.modelo ?? '')
+            .input('limpio', sql.Bit, auto?.limpio ?? 0)
+            .query(`UPDATE ${autoTabla} SET patente = @patente, fkUbicacion = @fkUbicacion, disponibilidad = @disponibilidad, modelo = @modelo, limpio = @limpio WHERE idAuto = @idAuto`);
         console.log(response)
         return response.recordset;
     }
@@ -53,14 +53,14 @@ export class AutoService {
     deleteAuto = async (id) => {
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, id)
+            .input('id', sql.Int, id)
             .query(`DELETE FROM ${autoTabla} WHERE idAuto = @id`);
         console.log(response)
         return response.recordset;
     }
-    
-    
 
-    
-    
+
+
+
+
 }

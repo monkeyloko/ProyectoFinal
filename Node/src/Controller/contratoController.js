@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import express from 'express';
-import {  ContratoService } from '../services/contratoService.js';
+import { ContratoService } from '../services/contratoService.js';
 import { Contrato } from '../models/contrato.js';
 const router = Router();
 const contratoService = new ContratoService();
@@ -41,7 +41,7 @@ router.post('', async (req, res) => {
     return res.status(201).json(contrato);
 });
 
-router.put('', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const contrato = await contratoService.updateContrato(req.params.id, req.body);
     return res.status(201).json(contrato);
 });

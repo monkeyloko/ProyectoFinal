@@ -41,8 +41,8 @@ router.post('', async (req, res) => {
     return res.status(201).json(auto);
 });
 
-router.put('', async (req, res) => {
-    const auto = await autoService.updateAuto(req.body);
+router.put('/:id', async (req, res) => {
+    const auto = await autoService.updateAuto(req.params.id, req.body);
     return res.status(200).json(auto);
 });
 
