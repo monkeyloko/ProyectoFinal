@@ -67,7 +67,7 @@ const TablaContratos = () => {
 									<td>{contrato.fechaDevolucion}</td>
 									<td>{cliente ? cliente.nombreCompleto : ''}</td>
 									<td>
-										<Link to={`/contratos/${contrato.idContrato}`} className="btn btn-primary">
+										<Link to={`/contratos/${contrato.idContrato}`} className=" btn-primary">
 											Ver Detalle
 										</Link>
 									</td>

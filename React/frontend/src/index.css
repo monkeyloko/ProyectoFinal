@@ -16,7 +16,7 @@ code {
 }
 
 
-ul {
+.ulLayout {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -24,7 +24,7 @@ ul {
   background-color: #e8e8e8;
 }
 
-ul li {
+ul .liLayout {
   float: left;
   padding: 14px 16px;
 

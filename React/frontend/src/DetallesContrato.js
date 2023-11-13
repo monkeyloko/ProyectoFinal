@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Modal from 'react-modal';
 import FormEditAuto from "./FormEditAuto";
 import FormEditContrato from "./FormEditContrato";
@@ -11,7 +11,6 @@ const DetallesContrato = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     useEffect(() => {
-        // Obtener detalles del contrato
         fetch(`http://localhost:5000/contrato/${idContrato}`)
             .then((response) => response.json())
             .then((contratoData) => {
@@ -31,6 +30,10 @@ const DetallesContrato = () => {
         setIsEditModalOpen(false);
     };
 
+    const handleContrato = () => {
+        console.log("se toca el boton")
+    }
+
     return (
         <div className="detalles-auto">
             <h2>Detalles del Contrato</h2>
@@ -41,6 +44,7 @@ const DetallesContrato = () => {
                     <p>Fecha de Entrega: {contrato.fechaAlquilado}</p>
                     <p>Fecha de Devolución: {contrato.fechaDevolucion}</p>
 
+<Link to={`/contratos/ver/${contrato.idContrato}`} className="btn btn-primary" onClick={()=>{handleContrato()}}>Ver contrato</Link>
 
                 </div>
             ) : (

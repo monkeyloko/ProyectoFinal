@@ -9,6 +9,7 @@ import NoPage from './NoPage';
 import Modal from './Modal';
 import DetallesContrato from './DetallesContrato';
 import Clientes from './Clientes'
+import Plantilla from './components/PlantillaContrato';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/autos/:idAuto" element={<DetallesAuto />} />
           <Route path="/contratos" element={<TablaContratos />} />
           <Route path="/clientes" element={<Clientes />} />
+          <Route path="/contratos/ver/:idContrato" element={<Plantilla />} />
           <Route path="/contratos/:idContrato" element={<DetallesContrato />} />
           <Route path="*" element={<NoPage />} />
         </Route>
@@ -29,5 +31,6 @@ function App() {
 
   );
 }
+
 
 export default App;
